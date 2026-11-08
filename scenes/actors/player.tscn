@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/player.gd" id="1_player"]
+[ext_resource type="SpriteFrames" path="res://resources/lumi_frames.tres" id="2_frames"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/light_radial.png" id="3_light"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/components/hurtbox.gd" id="5_hurtbox"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/pulse_ring.png" id="6_pulse"]
+
+[sub_resource type="CapsuleShape2D" id="Shape_body"]
+radius = 5.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="Shape_pulse"]
+radius = 96.0
+
+[sub_resource type="CapsuleShape2D" id="Shape_hurt"]
+radius = 6.0
+height = 13.0
+
+[sub_resource type="RectangleShape2D" id="Shape_stomp"]
+size = Vector2(24, 12)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("Shape_body")
+
+[node name="Light" type="PointLight2D" parent="."]
+color = Color(1, 0.92, 0.65, 1)
+energy = 1.15
+texture = ExtResource("3_light")
+texture_scale = 1.4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = -360
+limit_right = 1600
+limit_bottom = 380
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_health")
+
+[node name="PulseArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PulseArea"]
+shape = SubResource("Shape_pulse")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("5_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1)
+shape = SubResource("Shape_hurt")
+
+[node name="PulseVisual" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_pulse")
+
+[node name="StompArea" type="Area2D" parent="."]
+position = Vector2(0, 10)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea"]
+shape = SubResource("Shape_stomp")
+
+[node name="AudioPlayers" type="Node" parent="."]

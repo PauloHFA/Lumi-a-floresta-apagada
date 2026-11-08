@@ -1,0 +1,212 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/actors/shadow.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/objects/checkpoint.tscn" id="4_cp"]
+[ext_resource type="PackedScene" path="res://scenes/objects/spark.tscn" id="5_spark"]
+[ext_resource type="PackedScene" path="res://scenes/objects/shard.tscn" id="6_shard"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue.tscn" id="8_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="9_pause"]
+[ext_resource type="Texture2D" path="res://assets/sprites/lumi/owl.png" id="10_owl"]
+[ext_resource type="PackedScene" path="res://scenes/objects/bounce_mushroom.tscn" id="11_mush"]
+
+[sub_resource type="RectangleShape2D" id="Shape_ground_1"]
+size = Vector2(280, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_plat_1"]
+size = Vector2(96, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_ground_mid"]
+size = Vector2(260, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_ground_2"]
+size = Vector2(360, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(32, 480)
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_lvl")
+level_id = 1
+level_title = "Ato 1 - Raízes"
+music_track = "mystery"
+intro_dialogue = Array[String](["NARRADOR: A floresta que antes brilhava mergulhou em uma escuridão repentina.", "Lumi: Minha luz mal alcança um passo... o que aconteceu?", "Vovó Coruja: Acorde, pequeno. A noite está longa demais.", "Lumi: Vovó, por que o Grande Carvalho está apagado?", "Vovó Coruja: Ele se partiu, e seus três fragmentos de luz se espalharam pela floresta.", "Lumi: Se eu encontrar os fragmentos, posso trazer a luz de volta?", "Vovó Coruja: Sim. Algumas sombras estão assustadas e talvez precisem de ajuda, não de combate.", "Lumi: Então vou encontrar os fragmentos e ajudar a floresta."])
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.18, 0.16, 0.28, 1)
+
+[node name="BackgroundDecor" type="Node2D" parent="."]
+
+[node name="SkyRect" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 1600.0
+offset_bottom = 420.0
+color = Color(0.05, 0.06, 0.12, 1)
+
+[node name="AbyssFog" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = 330.0
+offset_right = 1600.0
+offset_bottom = 440.0
+color = Color(0.02, 0.01, 0.05, 0.95)
+
+[node name="GrandmaOwl" type="Sprite2D" parent="BackgroundDecor"]
+position = Vector2(88, 280)
+texture = ExtResource("10_owl")
+
+[node name="TutorialLabel" type="Label" parent="BackgroundDecor"]
+offset_left = 24.0
+offset_top = 198.0
+offset_right = 330.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 0.85)
+theme_override_font_sizes/font_size = 10
+text = "[A/D] Mover  [Espaço] Pular  [Shift] Dash de Luz\nUse os Cogumelos Azuis para saltar alto!"
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(-16, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/LeftWall"]
+shape = SubResource("Shape_wall")
+
+[node name="GroundStart" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(140, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/GroundStart"]
+shape = SubResource("Shape_ground_1")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/GroundStart"]
+offset_left = -140.0
+offset_top = -20.0
+offset_right = 140.0
+offset_bottom = 20.0
+color = Color(0.18, 0.24, 0.36, 1)
+
+[node name="Platform1" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(360, 260)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform1"]
+shape = SubResource("Shape_plat_1")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Platform1"]
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+color = Color(0.24, 0.32, 0.48, 1)
+
+[node name="Platform2" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(500, 180)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform2"]
+shape = SubResource("Shape_plat_1")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Platform2"]
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+color = Color(0.24, 0.32, 0.48, 1)
+
+[node name="GroundMid" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(720, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/GroundMid"]
+shape = SubResource("Shape_ground_mid")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/GroundMid"]
+offset_left = -130.0
+offset_top = -20.0
+offset_right = 130.0
+offset_bottom = 20.0
+color = Color(0.18, 0.24, 0.36, 1)
+
+[node name="Platform3" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(935, 250)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Platform3"]
+shape = SubResource("Shape_plat_1")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Platform3"]
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+color = Color(0.24, 0.32, 0.48, 1)
+
+[node name="GroundEnd" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1180, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/GroundEnd"]
+shape = SubResource("Shape_ground_2")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/GroundEnd"]
+offset_left = -180.0
+offset_top = -20.0
+offset_right = 180.0
+offset_bottom = 20.0
+color = Color(0.18, 0.24, 0.36, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1376, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/RightWall"]
+shape = SubResource("Shape_wall")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BounceMushroom1" parent="Objects" instance=ExtResource("11_mush")]
+position = Vector2(385, 246)
+
+[node name="Checkpoint1" parent="Objects" instance=ExtResource("4_cp")]
+position = Vector2(630, 280)
+
+[node name="Spark1" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(340, 232)
+
+[node name="Spark2" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(500, 152)
+
+[node name="Spark3" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(935, 222)
+
+[node name="Spark4" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(1090, 272)
+
+[node name="Shard1" parent="Objects" instance=ExtResource("6_shard")]
+position = Vector2(1280, 268)
+shard_id = 1
+target_next_level = 2
+pickup_dialogue = Array[String](["Lumi: Está quente... e está vivo!", "A luz de Lumi cresce e revela o caminho para o Pântano!"])
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Shadow1" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(750, 280)
+patrol_distance = 48.0
+
+[node name="Shadow2" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(1160, 280)
+patrol_distance = 56.0
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(56, 276)
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
+
+[node name="Dialogue" parent="." instance=ExtResource("8_dlg")]
+
+[node name="Pause" parent="." instance=ExtResource("9_pause")]

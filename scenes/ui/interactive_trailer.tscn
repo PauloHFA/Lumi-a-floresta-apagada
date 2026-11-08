@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/interactive_trailer.gd" id="1_trailer"]
+[ext_resource type="SpriteFrames" path="res://resources/lumi_frames.tres" id="2_lumi"]
+[ext_resource type="SpriteFrames" path="res://resources/shadow_frames.tres" id="3_shadow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/lumi/owl.png" id="4_owl"]
+
+[node name="InteractiveTrailer" type="Node2D"]
+script = ExtResource("1_trailer")
+
+[node name="Lumi" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_lumi")
+animation = &"fall"
+
+[node name="GrandmaOwl" type="Sprite2D" parent="."]
+texture = ExtResource("4_owl")
+
+[node name="CryingShadow" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_shadow")
+animation = &"crying"
+
+[node name="PulseEffect" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_owl")
+
+[node name="TrailerCamera" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+enabled = true
+position_smoothing_enabled = false

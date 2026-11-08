@@ -1,0 +1,232 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.12, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MainBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+theme_override_font_sizes/font_size = 20
+text = "Lumi e a Floresta Apagada"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/MainBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.82, 0.95, 1)
+theme_override_font_sizes/font_size = 11
+text = "Recupere os três fragmentos do Grande Carvalho"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="CenterContainer/MainBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "★ Brilho Nv.1  |  Fragmentos: 0/3  |  Centelhas: 0"
+horizontal_alignment = 1
+
+[node name="ButtonsBox" type="VBoxContainer" parent="CenterContainer/MainBox"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Continuar"
+
+[node name="NewGameButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Novo Jogo"
+
+[node name="TrailerButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Trailer Interativo"
+
+[node name="LevelSelectButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Selecionar Fase"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Configurações"
+
+[node name="CreditsButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Créditos"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/MainBox/ButtonsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Sair"
+
+[node name="LevelSelectModal" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -110.0
+offset_right = 150.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelectModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelectModal/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+theme_override_font_sizes/font_size = 13
+text = "Selecionar Fase"
+horizontal_alignment = 1
+
+[node name="Lvl1Btn" type="Button" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fase 1: Ato 1 — Raízes da Floresta"
+
+[node name="Lvl2Btn" type="Button" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fase 2: Ato 2 — O Pântano (Pulso)"
+
+[node name="Lvl3Btn" type="Button" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fase 3: Ato 2 — Copa das Árvores (Planar)"
+
+[node name="Lvl4Btn" type="Button" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fase 4: Ato 3 — O Grande Carvalho"
+
+[node name="CloseLvlBtn" type="Button" parent="LevelSelectModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Voltar"
+
+[node name="SettingsModal" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -120.0
+offset_right = 140.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsModal"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsModal/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+theme_override_font_sizes/font_size = 13
+text = "Configurações"
+horizontal_alignment = 1
+
+[node name="MusicLabel" type="Label" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Volume da Música"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="SfxLabel" type="Label" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Volume dos Efeitos (SFX)"
+
+[node name="SfxSlider" type="HSlider" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.9
+
+[node name="FullscreenCheck" type="CheckButton" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Tela Cheia"
+
+[node name="FlashesCheck" type="CheckButton" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Reduzir Flashes (Acessibilidade)"
+
+[node name="RemapJumpBtn" type="Button" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Tecla Pular: Espaço"
+
+[node name="RemapPulseBtn" type="Button" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Tecla Pulso: J"
+
+[node name="CloseSettingsBtn" type="Button" parent="SettingsModal/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Fechar"

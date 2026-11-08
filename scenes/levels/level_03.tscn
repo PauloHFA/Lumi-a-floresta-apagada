@@ -1,0 +1,214 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/actors/shadow.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/objects/checkpoint.tscn" id="4_cp"]
+[ext_resource type="PackedScene" path="res://scenes/objects/spark.tscn" id="5_spark"]
+[ext_resource type="PackedScene" path="res://scenes/objects/shard.tscn" id="6_shard"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue.tscn" id="8_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="9_pause"]
+[ext_resource type="Script" path="res://scripts/objects/wind_zone.gd" id="10_wind"]
+[ext_resource type="Texture2D" path="res://assets/sprites/lumi/owl.png" id="11_owl"]
+[ext_resource type="PackedScene" path="res://scenes/objects/bounce_mushroom.tscn" id="12_mush"]
+
+[sub_resource type="RectangleShape2D" id="Shape_base"]
+size = Vector2(360, 32)
+
+[sub_resource type="RectangleShape2D" id="Shape_branch"]
+size = Vector2(128, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_wind"]
+size = Vector2(128, 180)
+
+[sub_resource type="RectangleShape2D" id="Shape_gust"]
+size = Vector2(120, 96)
+
+[node name="Level03" type="Node2D"]
+script = ExtResource("1_lvl")
+level_id = 3
+level_title = "Ato 2 - Copa das Árvores"
+music_track = "aerial"
+intro_dialogue = Array[String](["Para subir, corra até o cogumelo azul e toque nele para ganhar impulso até o primeiro galho.", "No ar, aperte [Espaço] novamente para o segundo pulo. Segure [Espaço] e entre na corrente azul para alcançar a copa seguinte."])
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.18, 0.22, 0.3, 1)
+
+[node name="BackgroundDecor" type="Node2D" parent="."]
+
+[node name="SkyRect" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = -450.0
+offset_right = 1600.0
+offset_bottom = 420.0
+color = Color(0.05, 0.09, 0.15, 1)
+
+[node name="GrandmaOwlTop" type="Sprite2D" parent="BackgroundDecor"]
+position = Vector2(760, -42)
+texture = ExtResource("11_owl")
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="BaseGround" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(180, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/BaseGround"]
+shape = SubResource("Shape_base")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/BaseGround"]
+offset_left = -180.0
+offset_top = -16.0
+offset_right = 180.0
+offset_bottom = 16.0
+color = Color(0.16, 0.35, 0.34, 1)
+
+[node name="Branch1" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(340, 224)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Branch1"]
+shape = SubResource("Shape_branch")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Branch1"]
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 8.0
+color = Color(0.22, 0.45, 0.42, 1)
+
+[node name="Branch2" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(450, 190)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Branch2"]
+shape = SubResource("Shape_branch")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Branch2"]
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 8.0
+color = Color(0.22, 0.45, 0.42, 1)
+
+[node name="UpdraftWind" type="Area2D" parent="WorldGeometry"]
+position = Vector2(640, 80)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("10_wind")
+wind_force = Vector2(0, -1650)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/UpdraftWind"]
+shape = SubResource("Shape_wind")
+
+[node name="WindVisual" type="ColorRect" parent="WorldGeometry/UpdraftWind"]
+offset_left = -64.0
+offset_top = -90.0
+offset_right = 64.0
+offset_bottom = 90.0
+color = Color(0.65, 0.9, 1, 0.16)
+
+[node name="WindHint" type="Label" parent="WorldGeometry"]
+position = Vector2(592, -18)
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.07, 0.12, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+text = "VENTO ↑"
+
+[node name="Branch3" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(840, -20)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Branch3"]
+shape = SubResource("Shape_base")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Branch3"]
+offset_left = -180.0
+offset_top = -16.0
+offset_right = 180.0
+offset_bottom = 16.0
+color = Color(0.22, 0.45, 0.42, 1)
+
+[node name="StoryGustTrigger" type="Area2D" parent="WorldGeometry"]
+position = Vector2(740, -64)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("10_wind")
+is_story_gust = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/StoryGustTrigger"]
+shape = SubResource("Shape_gust")
+
+[node name="TopBranch" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1080, -90)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/TopBranch"]
+shape = SubResource("Shape_base")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/TopBranch"]
+offset_left = -180.0
+offset_top = -16.0
+offset_right = 180.0
+offset_bottom = 16.0
+color = Color(0.26, 0.52, 0.46, 1)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BounceMushroom1" parent="Objects" instance=ExtResource("12_mush")]
+position = Vector2(260, 286)
+
+[node name="MushroomHint" type="Label" parent="."]
+position = Vector2(168, 250)
+custom_minimum_size = Vector2(184, 20)
+theme_override_colors/font_color = Color(0.65, 0.95, 1, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.07, 0.12, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+text = "COGUMELO AZUL: IMPULSO PARA SUBIR!"
+horizontal_alignment = 1
+
+[node name="BounceMushroom2" parent="Objects" instance=ExtResource("12_mush")]
+position = Vector2(880, -42)
+
+[node name="Checkpoint1" parent="Objects" instance=ExtResource("4_cp")]
+position = Vector2(450, 176)
+
+[node name="Checkpoint2" parent="Objects" instance=ExtResource("4_cp")]
+position = Vector2(820, -44)
+
+[node name="Spark1" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(340, 200)
+
+[node name="Spark2" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(640, 20)
+
+[node name="Spark3" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(960, -118)
+
+[node name="Shard2" parent="Objects" instance=ExtResource("6_shard")]
+position = Vector2(1180, -122)
+shard_id = 3
+target_next_level = 4
+pickup_dialogue = Array[String](["Segundo Fragmento recuperado no alto da Copa das Árvores!", "Agora resta o Grande Carvalho no coração da floresta."])
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Shadow1" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(450, 170)
+patrol_distance = 40.0
+
+[node name="Shadow2" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(1060, -114)
+patrol_distance = 56.0
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(64, 276)
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
+
+[node name="Dialogue" parent="." instance=ExtResource("8_dlg")]
+
+[node name="Pause" parent="." instance=ExtResource("9_pause")]

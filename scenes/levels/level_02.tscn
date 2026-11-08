@@ -1,0 +1,222 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/actors/shadow.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/objects/checkpoint.tscn" id="4_cp"]
+[ext_resource type="PackedScene" path="res://scenes/objects/spark.tscn" id="5_spark"]
+[ext_resource type="PackedScene" path="res://scenes/objects/shard.tscn" id="6_shard"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue.tscn" id="8_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="9_pause"]
+[ext_resource type="Script" path="res://scripts/objects/mud_area.gd" id="10_mud"]
+[ext_resource type="Script" path="res://scripts/objects/moving_platform.gd" id="11_mov"]
+[ext_resource type="PackedScene" path="res://scenes/objects/bounce_mushroom.tscn" id="12_mush"]
+[ext_resource type="PackedScene" path="res://scenes/objects/light_crystal.tscn" id="13_crys"]
+
+[sub_resource type="RectangleShape2D" id="Shape_ground"]
+size = Vector2(440, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_mud"]
+size = Vector2(160, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_mov"]
+size = Vector2(96, 14)
+
+[sub_resource type="RectangleShape2D" id="Shape_ground_end"]
+size = Vector2(640, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(32, 480)
+
+[sub_resource type="RectangleShape2D" id="Shape_alcove"]
+size = Vector2(140, 16)
+
+[sub_resource type="RectangleShape2D" id="Shape_gate"]
+size = Vector2(20, 110)
+
+[node name="Level02" type="Node2D"]
+script = ExtResource("1_lvl")
+level_id = 2
+level_title = "Ato 2 - Pântano"
+music_track = "mystery"
+intro_dialogue = Array[String](["Nova habilidade: Pulso de Luz [J]! Atordoe sombras e ative Cristais de Luz para abrir barreiras.", "Lumi também aprendeu o STOMP: no ar, pressione [S] ou ↓ para mergulhar. Acerte uma sombra por cima para atordoá-la e saltar de volta!"])
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.16, 0.14, 0.25, 1)
+
+[node name="BackgroundDecor" type="Node2D" parent="."]
+
+[node name="SkyRect" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 1600.0
+offset_bottom = 420.0
+color = Color(0.07, 0.05, 0.12, 1)
+
+[node name="AbyssSwamp" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = 332.0
+offset_right = 1600.0
+offset_bottom = 440.0
+color = Color(0.03, 0.01, 0.06, 0.96)
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(-16, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/LeftWall"]
+shape = SubResource("Shape_wall")
+
+[node name="Ground1" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(220, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Ground1"]
+shape = SubResource("Shape_ground")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Ground1"]
+offset_left = -220.0
+offset_top = -20.0
+offset_right = 220.0
+offset_bottom = 20.0
+color = Color(0.22, 0.16, 0.32, 1)
+
+[node name="MudZone" type="Area2D" parent="WorldGeometry"]
+position = Vector2(290, 286)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("10_mud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MudZone"]
+shape = SubResource("Shape_mud")
+
+[node name="MudVisual" type="ColorRect" parent="WorldGeometry/MudZone"]
+offset_left = -80.0
+offset_top = -6.0
+offset_right = 80.0
+offset_bottom = 6.0
+color = Color(0.38, 0.22, 0.45, 0.9)
+
+[node name="MovingPlatform1" type="AnimatableBody2D" parent="WorldGeometry"]
+position = Vector2(510, 268)
+collision_layer = 1
+script = ExtResource("11_mov")
+move_offset = Vector2(140, -36)
+speed = 1.4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MovingPlatform1"]
+shape = SubResource("Shape_mov")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/MovingPlatform1"]
+offset_left = -48.0
+offset_top = -7.0
+offset_right = 48.0
+offset_bottom = 7.0
+color = Color(0.35, 0.28, 0.52, 1)
+
+[node name="Ground2" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1060, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Ground2"]
+shape = SubResource("Shape_ground_end")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Ground2"]
+offset_left = -320.0
+offset_top = -20.0
+offset_right = 320.0
+offset_bottom = 20.0
+color = Color(0.22, 0.16, 0.32, 1)
+
+[node name="CryingAlcove" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(960, 224)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/CryingAlcove"]
+shape = SubResource("Shape_alcove")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/CryingAlcove"]
+offset_left = -70.0
+offset_top = -8.0
+offset_right = 70.0
+offset_bottom = 8.0
+color = Color(0.3, 0.22, 0.44, 1)
+
+[node name="ShadowGate" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1230, 235)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/ShadowGate"]
+shape = SubResource("Shape_gate")
+
+[node name="GateVisual" type="ColorRect" parent="WorldGeometry/ShadowGate"]
+offset_left = -10.0
+offset_top = -55.0
+offset_right = 10.0
+offset_bottom = 55.0
+color = Color(0.45, 0.2, 0.65, 0.92)
+
+[node name="RightWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1396, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/RightWall"]
+shape = SubResource("Shape_wall")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BounceMushroom1" parent="Objects" instance=ExtResource("12_mush")]
+position = Vector2(820, 280)
+
+[node name="GateCrystal" parent="Objects" instance=ExtResource("13_crys")]
+position = Vector2(1010, 198)
+target_gate = NodePath("../../WorldGeometry/ShadowGate")
+activation_message = "PORTÃO DE SOMBRA ABERTO!"
+
+[node name="Checkpoint1" parent="Objects" instance=ExtResource("4_cp")]
+position = Vector2(780, 280)
+
+[node name="Spark1" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(580, 210)
+
+[node name="Spark2" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(930, 198)
+
+[node name="Spark3" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(1180, 260)
+
+[node name="PortalExit" parent="Objects" instance=ExtResource("6_shard")]
+position = Vector2(1310, 268)
+shard_id = 2
+target_next_level = 3
+pickup_dialogue = Array[String](["Lumi atravessa o Pântano rumo à Copa das Árvores!"])
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Shadow1" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(220, 280)
+patrol_distance = 50.0
+
+[node name="Shadow2" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(880, 280)
+patrol_distance = 50.0
+
+[node name="Shadow3" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(1120, 280)
+patrol_distance = 50.0
+
+[node name="CryingShadow" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(960, 206)
+is_crying_shadow = true
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(56, 276)
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
+
+[node name="Dialogue" parent="." instance=ExtResource("8_dlg")]
+
+[node name="Pause" parent="." instance=ExtResource("9_pause")]

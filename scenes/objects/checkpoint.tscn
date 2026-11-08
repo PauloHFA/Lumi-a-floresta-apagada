@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/objects/checkpoint.gd" id="1_cp"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/checkpoint.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/light_radial.png" id="3_light"]
+
+[sub_resource type="RectangleShape2D" id="Shape_cp"]
+size = Vector2(16, 16)
+
+[node name="Checkpoint" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_cp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_cp")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+enabled = false
+color = Color(1, 0.9, 0.55, 1)
+energy = 0.85
+texture = ExtResource("3_light")
+texture_scale = 0.75
+

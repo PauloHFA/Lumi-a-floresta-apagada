@@ -1,0 +1,11 @@
+# Godot 4+ must-ignores
+.godot/
+/android/
+
+# Exported builds
+build/
+exports/
+*.exe
+*.pck
+*.wasm
+.tools/

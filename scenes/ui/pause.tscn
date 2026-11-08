@@ -1,0 +1,121 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
+
+[node name="Pause" type="CanvasLayer"]
+layer = 40
+script = ExtResource("1_pause")
+
+[node name="RootPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Overlay" type="ColorRect" parent="RootPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.06, 0.78)
+
+[node name="CenterContainer" type="CenterContainer" parent="RootPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="RootPanel/CenterContainer"]
+custom_minimum_size = Vector2(260, 220)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RootPanel/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+text = "JOGO PAUSADO"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Continuar"
+
+[node name="OptionsBox" type="VBoxContainer" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MusicRow" type="HBoxContainer" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox/MusicRow"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Música"
+
+[node name="MusicSlider" type="HSlider" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.8
+
+[node name="SfxRow" type="HBoxContainer" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox/SfxRow"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Efeitos"
+
+[node name="SfxSlider" type="HSlider" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox/SfxRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 0.9
+
+[node name="FullscreenCheck" type="CheckButton" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Tela Cheia"
+
+[node name="FlashesCheck" type="CheckButton" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Reduzir Flashes"
+
+[node name="RemapJumpBtn" type="Button" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Remapear Pulo"
+
+[node name="RemapPulseBtn" type="Button" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Remapear Pulso"
+
+[node name="MenuButton" type="Button" parent="RootPanel/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Voltar ao Menu Principal"
+

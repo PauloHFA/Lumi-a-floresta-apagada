@@ -1,0 +1,157 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/actors/shadow.tscn" id="3_shadow"]
+[ext_resource type="PackedScene" path="res://scenes/objects/checkpoint.tscn" id="4_cp"]
+[ext_resource type="PackedScene" path="res://scenes/objects/spark.tscn" id="5_spark"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue.tscn" id="7_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause.tscn" id="8_pause"]
+[ext_resource type="Texture2D" path="res://assets/sprites/lumi/owl.png" id="9_owl"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/light_radial.png" id="10_light"]
+[ext_resource type="PackedScene" path="res://scenes/objects/bounce_mushroom.tscn" id="11_mush"]
+[ext_resource type="PackedScene" path="res://scenes/objects/light_crystal.tscn" id="12_crys"]
+
+[sub_resource type="RectangleShape2D" id="Shape_ground"]
+size = Vector2(1200, 40)
+
+[sub_resource type="RectangleShape2D" id="Shape_wall"]
+size = Vector2(32, 480)
+
+[sub_resource type="RectangleShape2D" id="Shape_plat"]
+size = Vector2(110, 14)
+
+[node name="Level04" type="Node2D"]
+script = ExtResource("1_lvl")
+level_id = 4
+level_title = "Ato 3 - O Grande Carvalho"
+music_track = "epic"
+intro_dialogue = Array[String](["Lumi chega ao Grande Carvalho. A Grande Sombra e suas companheiras o cercam.", "Acenda os Cristais Ancestrais com seu Pulso [J] ou aproxime-se da Grande Sombra em paz para dividir sua luz!"])
+is_final_oak_level = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.22, 0.18, 0.3, 1)
+
+[node name="BackgroundDecor" type="Node2D" parent="."]
+
+[node name="SkyRect" type="ColorRect" parent="BackgroundDecor"]
+offset_left = -200.0
+offset_top = -300.0
+offset_right = 1400.0
+offset_bottom = 420.0
+color = Color(0.08, 0.06, 0.14, 1)
+
+[node name="GreatOakTrunk" type="ColorRect" parent="BackgroundDecor"]
+offset_left = 680.0
+offset_top = 40.0
+offset_right = 820.0
+offset_bottom = 290.0
+color = Color(0.32, 0.22, 0.16, 1)
+
+[node name="GreatOakCrown" type="ColorRect" parent="BackgroundDecor"]
+offset_left = 560.0
+offset_top = -40.0
+offset_right = 940.0
+offset_bottom = 80.0
+color = Color(0.25, 0.38, 0.28, 1)
+
+[node name="OakHeartLight" type="PointLight2D" parent="BackgroundDecor"]
+position = Vector2(750, 150)
+color = Color(1, 0.9, 0.5, 1)
+energy = 1.4
+texture = ExtResource("10_light")
+texture_scale = 2.5
+
+[node name="GrandmaOwl" type="Sprite2D" parent="BackgroundDecor"]
+position = Vector2(790, 276)
+texture = ExtResource("9_owl")
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(-16, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/LeftWall"]
+shape = SubResource("Shape_wall")
+
+[node name="Ground" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(600, 308)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/Ground"]
+shape = SubResource("Shape_ground")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/Ground"]
+offset_left = -600.0
+offset_top = -20.0
+offset_right = 600.0
+offset_bottom = 20.0
+color = Color(0.28, 0.22, 0.18, 1)
+
+[node name="OakCanopyPlatform" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(660, 175)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/OakCanopyPlatform"]
+shape = SubResource("Shape_plat")
+
+[node name="Visual" type="ColorRect" parent="WorldGeometry/OakCanopyPlatform"]
+offset_left = -55.0
+offset_top = -7.0
+offset_right = 55.0
+offset_bottom = 7.0
+color = Color(0.36, 0.28, 0.2, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="WorldGeometry"]
+position = Vector2(1180, 160)
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/RightWall"]
+shape = SubResource("Shape_wall")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BounceMushroom1" parent="Objects" instance=ExtResource("11_mush")]
+position = Vector2(520, 282)
+
+[node name="OakCrystal1" parent="Objects" instance=ExtResource("12_crys")]
+position = Vector2(560, 250)
+activation_message = "RAIZ DO CARVALHO ILUMINADA!"
+
+[node name="OakCrystal2" parent="Objects" instance=ExtResource("12_crys")]
+position = Vector2(660, 148)
+activation_message = "COPA DO CARVALHO ILUMINADA!"
+
+[node name="Checkpoint1" parent="Objects" instance=ExtResource("4_cp")]
+position = Vector2(220, 280)
+
+[node name="Spark1" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(340, 260)
+
+[node name="Spark2" parent="Objects" instance=ExtResource("5_spark")]
+position = Vector2(480, 260)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="GreatShadowBoss" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(660, 268)
+is_boss_shadow = true
+
+[node name="Shadow1" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(420, 280)
+patrol_distance = 40.0
+
+[node name="Shadow2" parent="Enemies" instance=ExtResource("3_shadow")]
+position = Vector2(850, 280)
+patrol_distance = 40.0
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(72, 276)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="Dialogue" parent="." instance=ExtResource("7_dlg")]
+
+[node name="Pause" parent="." instance=ExtResource("8_pause")]

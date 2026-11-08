@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/objects/spark.gd" id="1_spark"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/spark.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/light_radial.png" id="3_light"]
+
+[sub_resource type="CircleShape2D" id="Shape_spark"]
+radius = 6.0
+
+[node name="Spark" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_spark")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Shape_spark")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.95, 0.6, 1)
+energy = 0.5
+texture = ExtResource("3_light")
+texture_scale = 0.35
+

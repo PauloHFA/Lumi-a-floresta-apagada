@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/dialogue_data.gd" id="1_dlg"]
+
+[resource]
+script = ExtResource("1_dlg")
+act_1_intro = Array[String](["NARRADOR: A floresta que antes brilhava mergulhou em uma escuridão repentina.", "Lumi: Minha luz mal alcança um passo... o que aconteceu?", "Vovó Coruja: Acorde, pequeno. A noite está longa demais.", "Lumi: Vovó, por que o Grande Carvalho está apagado?", "Vovó Coruja: Ele se partiu, e seus três fragmentos de luz se espalharam pela floresta.", "Lumi: Se eu encontrar os fragmentos, posso trazer a luz de volta?", "Vovó Coruja: Sim. Algumas sombras estão assustadas e talvez precisem de ajuda, não de combate.", "Lumi: Então vou encontrar os fragmentos e ajudar a floresta."])
+shard_1_found = Array[String](["Lumi: Está quente... e está vivo!"])
+crying_shadow = Array[String](["Lumi: Você não quer me machucar, quer?", "Sombra: Nós só temos medo de ficar sozinhas no escuro..."])
+wind_gust = Array[String](["Vovó Coruja: A luz não é só brilhar. É não se apagar sozinho."])
+ending_lines = Array[String](["Lumi: Não precisamos escolher entre luz e escuridão. Cabe todo mundo."])
