@@ -1,0 +1,43 @@
+name: Godot CI Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Run Godot Acceptance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Godot 4.7.2 Headless
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
+          unzip -q Godot_v4.7.2-stable_linux.x86_64.zip
+          sudo mv Godot_v4.7.2-stable_linux.x86_64 /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
+          godot --version
+
+      - name: Run CA Acceptance Suite
+        run: |
+          godot --headless --path . -s tests/test_acceptance_criteria.gd
+
+      - name: Run Dialogue Cinematics Suite
+        run: |
+          godot --headless --path . -s tests/test_dialogue_cinematics.gd
+
+      - name: Run Interactive Trailer Suite
+        run: |
+          godot --headless --path . -s tests/test_interactive_trailer.gd
+
+      - name: Run Stomp and Level 3 Route Suite
+        run: |
+          godot --headless --path . -s tests/test_stomp_and_level3_route.gd
+
+      - name: Verify Cold-Boot Scene Load
+        run: |
+          godot --headless --path . --quit-after 5

@@ -1,6 +1,6 @@
-# Lumi e a Floresta Apagada
+# Lumi e a Floresta Apagada (`Jogo-Plataforma-Lumi`)
 
-Jogo de plataforma 2D de aventura curta desenvolvido para **Godot 4.7 (GDScript)** seguindo integralmente a especificação técnica e artística do projeto.
+> Jogo de plataforma 2D de aventura curta desenvolvido para **Godot 4.7 (GDScript)** (ver [PENDENCIAS.md](PENDENCIAS.md))
 
 ## Como Abrir e Executar
 
